@@ -1,6 +1,6 @@
 #ifndef CHECKOUTCOMMAND_H
 #define CHECKOUTCOMMAND_H
-
+#include <string>
 class CheckoutCommand
 {
 public:

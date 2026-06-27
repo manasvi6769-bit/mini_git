@@ -71,7 +71,7 @@ std::vector<std::string> FileSystem::listFiles(const std::string& root,bool igno
         // Skip everything inside .git when requested
         if(ignoreGit)
         {
-            if(relative.rfind(".git", 0) == 0)
+            if(relative.rfind(".mgit", 0) == 0)
                 continue;
         }
 

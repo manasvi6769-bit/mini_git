@@ -19,7 +19,7 @@ bool Index::addFile(const std::string& relativePath)
         return false;
 
     std::string destination =
-        "Project/.git/index/" + relativePath;
+        "Project/.mgit/index/" + relativePath;
 
     return fileSystem.copyFile(source, destination);
 }

@@ -1,0 +1,3 @@
+Commit: 2
+Parent: 1
+Message: add docs/foo.txt

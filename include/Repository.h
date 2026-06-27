@@ -2,6 +2,7 @@
 #define REPOSITORY_H
 
 #include <string>
+#include <vector>
 
 class Repository
 {
