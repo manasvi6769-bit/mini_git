@@ -9,6 +9,7 @@
 #include "../include/commands/InitCommand.h"
 #include "../include/commands/LogCommand.h"
 #include "../include/commands/StatusCommand.h"
+#include "../include/commands/CheckoutCommand.h"
 
 int main(int argc, char* argv[])
 {
@@ -75,6 +76,18 @@ int main(int argc, char* argv[])
 
         StatusCommand status;
         status.execute();
+    }
+    else if(command == "checkout")
+    {
+        if(argc != 3)
+        {
+            std::cout << "Usage: checkout <commit_number>\n";
+            return 1;
+        }
+
+        CheckoutCommand checkout;
+
+        checkout.execute(std::stoi(argv[2]));
     }
     else
     {

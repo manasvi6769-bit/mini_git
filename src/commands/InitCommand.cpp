@@ -15,7 +15,7 @@ void InitCommand::execute()
         std::cout << "Repository already exists.\n";
         return;
     }
-    fs.createDirectory("Project/.git");
+    fs.createDirectory("Project/.mgit");
 
     fs.createDirectory("Project/.mgit/objects");
     fs.createDirectory("Project/.mgit/commits");
@@ -30,7 +30,7 @@ void InitCommand::execute()
                   "ref: refs/heads/main");
 
     fs.createFile("Project/.mgit/refs/heads/main",
-                  "");
+                  "0");
 
     std::cout << "Initialized empty MiniGit repository.\n";
 }

@@ -27,6 +27,10 @@ public:
 
     bool areFilesEqual(const std::string& file1,const std::string& file2);
 
+    bool clearDirectory(const std::string& path,bool ignoreMiniGit = false);
+
+    bool writeFile(const std::string& path,const std::string& content);
+
     
 };
 

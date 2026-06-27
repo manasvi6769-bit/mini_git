@@ -25,9 +25,8 @@ void CommitCommand::execute(const std::string& message)
     }
 
     // Next commit number
-    int parentCommit = repository.getLastCommitNumber();
-    int commitNumber = repository.getNextCommitNumber();
-
+    int parentCommit =repository.getCurrentCommit();
+    int commitNumber =parentCommit + 1;
     // Commit path
     std::string commitPath =repository.getCommitPath(commitNumber);
 
@@ -54,9 +53,8 @@ void CommitCommand::execute(const std::string& message)
     "Parent: " + std::to_string(parentCommit) + "\n" +
     "Message: " + message;
     
-    fileSystem.createFile(
-    commitPath + "/metadata.txt",
-    metadata);
+    fileSystem.createFile(commitPath + "/metadata.txt",metadata);
+    repository.updateCurrentBranch(commitNumber);
 
     std::cout<< "Committed as Commit "<< commitNumber<< "\n";
 }

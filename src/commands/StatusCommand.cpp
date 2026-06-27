@@ -25,7 +25,7 @@ void StatusCommand::execute()
         fileSystem.listFiles(repository.getIndexPath());
 
     // Last commit
-    int lastCommit = repository.getLastCommitNumber();
+    int lastCommit = repository.getCurrentCommit();
 
     std::vector<std::string> committedFiles;
 

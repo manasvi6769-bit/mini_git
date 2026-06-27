@@ -2,7 +2,7 @@
 
 #include <filesystem>
 #include <fstream>
-
+#include <sstream>
 #include<iostream>
 #include<vector>
 #include<string>
@@ -98,10 +98,45 @@ std::string FileSystem::readFile(const std::string& path)
 
     return content;
 }
+
 bool FileSystem::areFilesEqual(const std::string& file1,const std::string& file2)
 {
     return readFile(file1) == readFile(file2);
 }
 
+bool FileSystem::clearDirectory(const std::string& path,
+                                bool ignoreMiniGit)
+{
+    try
+    {
+        for(const auto& entry : fs::directory_iterator(path))
+        {
+            // Ignore .mgit if requested
+            if(ignoreMiniGit &&
+               entry.path().filename() == ".mgit")
+            {
+                continue;
+            }
 
+            fs::remove_all(entry.path());
+        }
+
+        return true;
+    }
+    catch(...)
+    {
+        return false;
+    }
+}
+bool FileSystem::writeFile(const std::string& path,const std::string& content)
+{
+    std::ofstream file(path);
+
+    if(!file)
+        return false;
+
+    file << content;
+
+    return true;
+}
 

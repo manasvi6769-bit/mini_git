@@ -17,7 +17,7 @@ void LogCommand::execute()
     }
 
     // Get latest commit
-    int lastCommit = repository.getLastCommitNumber();
+    int lastCommit = repository.getCurrentCommit();
 
     if(lastCommit == 0)
     {

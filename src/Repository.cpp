@@ -11,41 +11,12 @@ bool Repository::exists()
 
     return fileSystem.directoryExists("Project/.mgit");
 }
-int Repository::getNextCommitNumber()
-{
-    int count = 0;
 
-    for(const auto& entry :fs::directory_iterator("Project/.mgit/commits"))
-    {
-        if(entry.is_directory())
-            count++;
-    }
-
-    return count + 1;
-}
 std::string Repository::getCommitPath(int commitNumber)
 {
     return "Project/.mgit/commits/" + std::to_string(commitNumber);
 }
-int Repository::getLastCommitNumber()
-{
-    int lastCommit = 0;
 
-    for(const auto& entry :
-        std::filesystem::directory_iterator("Project/.mgit/commits"))
-    {
-        if(entry.is_directory())
-        {
-            int number =
-                std::stoi(entry.path().filename().string());
-
-            if(number > lastCommit)
-                lastCommit = number;
-        }
-    }
-
-    return lastCommit;
-}
 std::string Repository::getMetadataPath(int commitNumber)
 {
     return getCommitPath(commitNumber) + "/metadata.txt";
@@ -60,5 +31,54 @@ std::string Repository::getIndexPath()
 }
 std::string Repository::getRepositoryRoot(){
     return "Project";
+}
+
+
+std::string Repository::getHeadPath()
+{
+    return getRepositoryRoot() + "/.mgit/HEAD";
+}
+std::string Repository::getCurrentBranch()
+{
+    FileSystem fileSystem;
+
+    std::string head =
+        fileSystem.readFile(getHeadPath());
+
+    std::string prefix = "ref: refs/heads/";
+
+    std::string branch = head.substr(prefix.size());
+
+    if(!branch.empty() && branch.back() == '\n')
+        branch.pop_back();
+
+    return branch;
+}
+
+std::string Repository::getCurrentBranchPath()
+{
+    return getRepositoryRoot()
+            + "/.mgit/refs/heads/"
+            + getCurrentBranch();
+}
+int Repository::getCurrentCommit()
+{
+    FileSystem fileSystem;
+
+    std::string value =
+        fileSystem.readFile(getCurrentBranchPath());
+
+    if(value.empty())
+        return 0;
+
+    return std::stoi(value);
+}
+void Repository::updateCurrentBranch(int commitNumber)
+{
+    FileSystem fileSystem;
+
+    fileSystem.writeFile(
+        getCurrentBranchPath(),
+        std::to_string(commitNumber));
 }
 

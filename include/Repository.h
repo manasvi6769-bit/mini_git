@@ -9,11 +9,9 @@ public:
 
     bool exists();
 
-    int getNextCommitNumber();
 
     std::string getCommitPath(int commitNumber);
 
-    int getLastCommitNumber();
 
     std::string getMetadataPath(int commitNumber);
 
@@ -22,6 +20,16 @@ public:
     std::string getIndexPath();
 
     std::string getRepositoryRoot();
+
+    std::string getHeadPath();
+
+    std::string getCurrentBranch();
+
+    std::string getCurrentBranchPath();
+
+    int getCurrentCommit();
+
+    void updateCurrentBranch(int commitNumber);
 };
 
 #endif
