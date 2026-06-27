@@ -31,6 +31,7 @@ public:
 
     bool writeFile(const std::string& path,const std::string& content);
 
+    std::vector<std::string>listDirectory(const std::string& path);
     
 };
 

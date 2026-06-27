@@ -10,6 +10,7 @@
 #include "../include/commands/LogCommand.h"
 #include "../include/commands/StatusCommand.h"
 #include "../include/commands/CheckoutCommand.h"
+#include "../include/commands/BranchCommand.h"
 
 int main(int argc, char* argv[])
 {
@@ -87,8 +88,22 @@ int main(int argc, char* argv[])
 
         CheckoutCommand checkout;
 
-        checkout.execute(std::stoi(argv[2]));
+        checkout.execute(argv[2]);
     }
+    else if(command == "branch")
+    {
+        BranchCommand branch;
+
+        if(argc == 2)
+            branch.execute();
+
+        else if(argc == 3)
+            branch.execute(argv[2]);
+
+        else
+            std::cout << "Usage: branch [name]\n";
+    }
+    
     else
     {
         std::cout << "Unknown command: "<< command<< '\n';

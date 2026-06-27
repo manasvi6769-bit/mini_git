@@ -82,3 +82,47 @@ void Repository::updateCurrentBranch(int commitNumber)
         std::to_string(commitNumber));
 }
 
+int Repository::getBranchCommit(
+        const std::string& branchName)
+{
+    FileSystem fileSystem;
+
+    std::string value =
+        fileSystem.readFile(
+            getBranchPath(branchName));
+
+    if(value.empty())
+        return 0;
+
+    return std::stoi(value);
+}
+std::string Repository::getBranchPath(const std::string& branchName)
+{
+    return getRepositoryRoot()
+            + "/.mgit/refs/heads/"
+            + branchName;
+}
+bool Repository::branchExists(const std::string& branchName)
+{
+    FileSystem fileSystem;
+
+    return fileSystem.fileExists(
+                getBranchPath(branchName));
+}
+bool Repository::createBranch(
+        const std::string& branchName)
+{
+    FileSystem fileSystem;
+
+    return fileSystem.createFile(
+        getBranchPath(branchName),
+        std::to_string(getCurrentCommit()));
+}
+void Repository::switchBranch(const std::string& branchName)
+{
+    FileSystem fileSystem;
+
+    fileSystem.writeFile(
+        getHeadPath(),
+        "ref: refs/heads/" + branchName);
+}

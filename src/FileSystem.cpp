@@ -140,3 +140,17 @@ bool FileSystem::writeFile(const std::string& path,const std::string& content)
     return true;
 }
 
+std::vector<std::string>
+FileSystem::listDirectory(const std::string& path)
+{
+    std::vector<std::string> entries;
+
+    for(const auto& entry :
+        fs::directory_iterator(path))
+    {
+        entries.push_back(
+            entry.path().filename().string());
+    }
+
+    return entries;
+}

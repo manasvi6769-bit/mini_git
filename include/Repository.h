@@ -30,6 +30,18 @@ public:
     int getCurrentCommit();
 
     void updateCurrentBranch(int commitNumber);
+
+    bool branchExists(const std::string& branchName);
+
+    std::string getBranchPath(const std::string& branchName);
+
+    bool createBranch(const std::string& branchName);
+
+    void switchBranch(const std::string& branchName);
+
+    std::vector<std::string> listBranches();
+
+    int getBranchCommit(const std::string& branchName);
 };
 
 #endif
