@@ -1,1 +1,13 @@
+# macOS
+.DS_Store
+
+# Executable
 minigit
+
+# Build directories (for future)
+build/
+cmake-build-*/
+
+# Object files
+*.o
+*.obj
